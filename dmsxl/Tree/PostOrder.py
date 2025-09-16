@@ -38,3 +38,21 @@ class Solution(object):
 
         ans.reverse()
         return ans
+    
+    def PostorderTraversal(self, root):
+        ans = []
+        st = deque()
+        if root:
+            st.append((root, False))
+        
+        while (st):
+            node, visit = st.pop()
+            if visit:
+                ans.append(node.val)
+                continue
+            if node.right:
+                st.append((node.right, False))
+            if node.left:
+                st.append((node.left, False))
+            st.append((node, True))
+        return ans
