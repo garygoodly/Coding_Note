@@ -50,9 +50,10 @@ class Solution(object):
             if visit:
                 ans.append(node.val)
                 continue
+            st.append((node, True))
             if node.right:
                 st.append((node.right, False))
             if node.left:
                 st.append((node.left, False))
-            st.append((node, True))
+
         return ans
