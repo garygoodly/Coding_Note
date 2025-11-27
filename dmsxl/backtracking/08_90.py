@@ -16,4 +16,7 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        
+        ans = [[]]
+        nums.sort()
+        self.bt(ans, [], nums, 0)
+        return ans

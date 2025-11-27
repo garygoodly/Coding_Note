@@ -11,10 +11,13 @@ class Solution(object):
                 self.bt(ans, path, used, nums)
                 used[idx] = False
                 path.pop()
-                
+
     def permute(self, nums):
         """
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        
+        ans = []
+        used = [False] * len(nums)
+        self.bt(ans, [], used, nums)
+        return ans
