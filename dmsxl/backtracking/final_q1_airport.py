@@ -2,50 +2,25 @@
 from collections import defaultdict
 
 class Solution(object):
-    def dfs(self, order, adj, path, n):
-        if len(path) == n + 1:
-            return True
-        
-        current = path[-1]
-
-        # If current has no outgoing edges, we cannot extend the path.
-        if current not in order:
-            return False
-        
-        for end in order[path[-1]]:
-            if adj[path[-1]][end] > 0:
-                adj[path[-1]][end] -= 1
-                path.append(end)
-                if self.dfs(order, adj, path, n):
-                    return True
-                path.pop()
-                adj[path[-1]][end] += 1
-
-        return False
-        
+    def dfs(self, adj, path, u):
+        while (adj[u]):
+            v = adj[u].pop()
+            self.dfs(adj, path, v)
+        path.append(u)
             
     def findItinerary(self, tickets):
         """
         :type tickets: List[List[str]]
         :rtype: List[str]
         """
-        adj = {}
+        adj = defaultdict(list)
 
-        for start, end in tickets:
-            if start not in adj:
-                adj[start] = defaultdict(int)
-            adj[start][end] += 1
+        for u, v in tickets:
+            adj[u].append(v)
 
-        # for start in sorted(adj.keys()):
-        #     for end in sorted(adj[start].keys()):
-        #         print(start, "->", end, adj[start][end])
+        for u in adj:
+            adj[u].sort(reverse = True)
 
-        order = {}
-        for start in adj:
-            # Only sort once here
-            order[start] = sorted(adj[start].keys())
-
-        n = len(tickets)
-        path = ["JFK"]
-        self.dfs(order, adj, path, n)
-        return path
+        path = []
+        self.dfs(adj, path, u)
+        return path.reverse()
