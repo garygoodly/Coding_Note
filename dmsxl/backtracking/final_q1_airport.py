@@ -22,5 +22,5 @@ class Solution(object):
             adj[u].sort(reverse = True)
 
         path = []
-        self.dfs(adj, path, u)
-        return path.reverse()
+        self.dfs(adj, path, "JFK")
+        return path[::-1]
