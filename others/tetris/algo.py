@@ -77,6 +77,24 @@ class Board:
         self.grid = np.zeros(shape=(24, 12))
         self.grid[:, 0] = 1
         self.grid[:, 11] = 1
+    
+    def is_valid(self, tetro):
+        for i in range(4):
+            for j in range(4):
+                if tetro.arr[i][j] + self.grid[tetro.y + i][tetro.x + j] > 1:
+                    return False
+        return True
+
+class Game:
+    def 
+
+    def update(board, tetro):
+        for i in range(4):
+            for j in range(4):
+                board.grid[tetro.y + i][tetro.x + j] = tetro.arr[i][j]
+    
+    def 
+
 
 if __name__ == '__main__':
     b = Board()
