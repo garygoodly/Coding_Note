@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 class Solution(object):
     def onlyfactor(self, m):
         k = m
