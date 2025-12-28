@@ -1,8 +1,16 @@
 import time
 import numpy as np
+import random
+import pygame
+
+GRID_SIZE = 30
+BOARD_WIDTH = 12
+BOARD_HEIGHT = 24
+WINDOW_WIDTH = BOARD_WIDTH * GRID_SIZE
+WINDOW_HEIGHT = BOARD_HEIGHT * GRID_SIZE
 
 class Tetromino:
-    Tetromino_enum = {
+    Tetromino_size_enum = {
         0: 'I',
         1: 'O',
         2: 'L',
@@ -10,6 +18,16 @@ class Tetromino:
         4: 'FL',
         5: 'N',
         6: 'FN'
+    }
+
+    Tetromino_color_enum = {
+        'I':  (0, 255, 255),   # Ao
+        'O':  (255, 255, 0),   # Yellow
+        'L':  (255, 165, 0),   # Orange
+        'FL': (0, 0, 255),     # Blue
+        'T':  (160, 32, 240),  # Purple
+        'N':  (0, 255, 0),     # Green
+        'FN': (255, 0, 0)      # Red
     }
 
     Tetromino_block = {
@@ -52,7 +70,7 @@ class Tetromino:
     def __init__(self, x, y, type):
         self.x = x
         self.y = y
-        self.shape = self.Tetromino_enum[type]
+        self.shape = self.Tetromino_size_enum[type]
         self.arr = self.Tetromino_block[self.shape]
     
     def rotate(self):   # counter clockwise
@@ -85,17 +103,45 @@ class Board:
                     return False
         return True
 
-class Game:
-    def 
-
-    def update(board, tetro):
+    def update(self, tetro):
         for i in range(4):
             for j in range(4):
-                board.grid[tetro.y + i][tetro.x + j] = tetro.arr[i][j]
+                if tetro.arr[i][j] == 1:
+                    self.grid[tetro.y + i][tetro.x + j] = 1
     
-    def 
+    def clear_row(self):
+        for i in range(24):
+            if self.grid[i][:] == [1] * 12:
+                self.grid[1 : i+1] = self.grid[ : i]
+    
 
 
-if __name__ == '__main__':
-    b = Board()
-    
+class Game:
+    def __init__(self):
+        self.board = Board()
+        self.tetro = None
+
+    def newTetro(self):
+        self.tetro = Tetromino(4, 0, random.randint(0, 6))
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+    pygame.display.set_caption("Tetris")
+
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        screen.fill((0, 0, 0))
+
+
+
+
+
+
+        pygame.display.update()
+
+    pygame.quit()
